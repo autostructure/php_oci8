@@ -3,8 +3,9 @@
 # This class is called from php_oci8 for install.
 #
 class php_oci8::install {
+
   $file_base_location = "${::php_oci8::temp_location}/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}"
-  
+
   file {"${file_base_location}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm":
     source => "puppet:///modules/php-oci8/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
   }
@@ -39,4 +40,5 @@ class php_oci8::install {
     ensure  => installed,
     require => Class['php'];
   }
+
 }
