@@ -39,7 +39,7 @@ class php_oci8::install {
     provider        => 'rpm',
     source          => "${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
     install_options => '--force',
-    require         => [ File["${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm"], Package['oracle-instantclient-basic']],
+    require         => [ File["${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm"], Package["oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}"]],
   }
 
   package {'php-devel':
