@@ -7,7 +7,7 @@ class php_oci8::config {
 
 
     exec {'update pecl channel for pecl.php.net':
-      command => '/bin/pecl channel-update pecl.php.net',
+    command => '/bin/pecl channel-update pecl.php.net',
 	  user    => root,
 	  timeout => 0,
 	  tries   => 5,
@@ -27,9 +27,17 @@ class php_oci8::config {
       line => 'extension=oci8.so',
     }
 
-    file_line {'env-oracle':
+    file_line {'env-oracle-home':
       path   => '/etc/environment',
-      line   => "\nexport ORACLE_HOME=/usr/lib/oracle/${::php_oci8::major}.${::php_oci8::minor}/client64/lib\nexport NLS_DATE_FORMAT=\"DD/MM/YYYY HH24:MI\"",
+      line   => "export ORACLE_HOME=/usr/lib/oracle/${::php_oci8::major}.${::php_oci8::minor}/client64/lib",
+      match  => '^export\ ORACLE_HOME\='
+      notify => Service['httpd'],
+    }
+
+    file_line {'env-oracle-nls-date-format':
+      path   => '/etc/environment',
+      line   => "export NLS_DATE_FORMAT=\"DD/MM/YYYY HH24:MI\"",
+      match  => '^export\ NLS_DATE_FORMAT\='
       notify => Service['httpd'],
     }
 
