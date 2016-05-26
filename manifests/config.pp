@@ -14,14 +14,14 @@ class php_oci8::config {
     }
 
     file_line {'add-oci8-php':
-      file => '/etc/php.ini',
+      path => '/etc/php.ini',
       line => 'extension=oci8.so',
     }
 
     file_line {'env-oracle':
-      file   => '/etc/environment',
+      path   => '/etc/environment',
       line   => "\nexport ORACLE_HOME=/usr/lib/oracle/${::php_oci8::major}.${::php_oci8::minor}/client/lib\nexport NLS_DATE_FORMAT=\"DD/MM/YYYY HH24:MI\"",
-      notify => Service['apache'],
+      notify => Service['httpd'],
     }
 
 }
