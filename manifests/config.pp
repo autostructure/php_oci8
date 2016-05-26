@@ -28,7 +28,7 @@ class php_oci8::config {
 
     file_line {'env-oracle':
       path   => '/etc/environment',
-      line   => "\nexport ORACLE_HOME=/usr/lib/oracle/${::php_oci8::major}.${::php_oci8::minor}/client/lib\nexport NLS_DATE_FORMAT=\"DD/MM/YYYY HH24:MI\"",
+      line   => "\nexport ORACLE_HOME=/usr/lib/oracle/${::php_oci8::major}.${::php_oci8::minor}/client64/lib\nexport NLS_DATE_FORMAT=\"DD/MM/YYYY HH24:MI\"",
       #notify => Service['httpd'],
     }
 
