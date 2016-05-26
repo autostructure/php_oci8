@@ -24,21 +24,21 @@ class php_oci8::install {
     source  => "puppet:///modules/php_oci8/answers-pecl-oci8-${php_oci8::major}.${::php_oci8::minor}.txt",
   }
 
-  package {'oracle-instantclient-basic':
+  package {"oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}":
     ensure          => installed,
-    name            => "oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
+    #name            => "oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
     provider        => 'rpm',
     source          => "${file_base_location}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
-    #install_options => '--force',
+    install_options => '--force',
     require         => File["${file_base_location}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm"],
   }
 
-  package {'oracle-instantclient-devel':
+  package {"oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}":
     ensure          => installed,
-    name            => "oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
+    #name            => "oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
     provider        => 'rpm',
     source          => "${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
-    #install_options => '--force',
+    install_options => '--force',
     require         => [ File["${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm"], Package['oracle-instantclient-basic']],
   }
 
