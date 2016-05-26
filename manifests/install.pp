@@ -14,7 +14,7 @@ class php_oci8::install {
     source => "puppet:///modules/php_oci8/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
   }
 
-  file {"answers-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt":
+  file {"${::php_oci8::temp_location}/answers-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt":
     source => "puppet:///modules/php_oci8/${file_base_location}.txt",
   }
 
