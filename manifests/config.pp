@@ -14,7 +14,7 @@ class php_oci8::config {
 	  before  => Exec['pecl-install-oci8'],
     }
     exec {'pecl-install-oci8':
-      command => "/bin/pecl install oci8 </tmp/answers-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt",
+      command => "/bin/pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt",
       user    => root,
       timeout => 0,
       tries   => 5,

@@ -9,4 +9,5 @@ class php_oci8::params {
   $version = '12.1.0.2.0'
   $architecture = 'x86_64'
   $temp_location = '/tmp'
+  $pecl_oci8_version = '2.0.7'
 }
