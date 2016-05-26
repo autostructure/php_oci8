@@ -11,6 +11,7 @@ class php_oci8::config {
 	  user    => root,
 	  timeout => 0,
 	  tries   => 5,
+	  unless  => '/usr/bin/php -m | grep -c oci8',
 	  before  => Exec['pecl-install-oci8'],
     }
     exec {'pecl-install-oci8':
@@ -29,7 +30,7 @@ class php_oci8::config {
     file_line {'env-oracle':
       path   => '/etc/environment',
       line   => "\nexport ORACLE_HOME=/usr/lib/oracle/${::php_oci8::major}.${::php_oci8::minor}/client64/lib\nexport NLS_DATE_FORMAT=\"DD/MM/YYYY HH24:MI\"",
-      #notify => Service['httpd'],
+      notify => Service['httpd'],
     }
 
 }
