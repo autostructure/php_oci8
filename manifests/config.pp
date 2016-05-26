@@ -5,6 +5,14 @@
 
 class php_oci8::config {
 
+
+    exec ('update pecl channel for pecl.php.net':
+      command => '/bin/pecl channel-update pecl.php.net',
+	  user    => root,
+	  timeout => 0,
+	  tries   => 5,
+	  before  => Exec['pecl-install-oci8'],
+    }
     exec {'pecl-install-oci8':
       command => "/bin/pecl install oci8 </tmp/answers-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt",
       user    => root,
