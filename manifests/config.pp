@@ -6,7 +6,7 @@
 class php_oci8::config {
 
 
-    exec ('update pecl channel for pecl.php.net':
+    exec {'update pecl channel for pecl.php.net':
       command => '/bin/pecl channel-update pecl.php.net',
 	  user    => root,
 	  timeout => 0,
