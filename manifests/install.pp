@@ -7,15 +7,15 @@ class php_oci8::install {
   $file_base_location = "${::php_oci8::temp_location}/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}"
 
   file {"${file_base_location}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm":
-    source => "puppet:///modules/php-oci8/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
+    source => "puppet:///modules/php_oci8/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
   }
 
   file {"${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm":
-    source => "puppet:///modules/php-oci8/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
+    source => "puppet:///modules/php_oci8/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
   }
 
   file {"${file_base_location}.txt":
-    source => "puppet:///modules/php-oci8/answer-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt",
+    source => "puppet:///modules/php_oci8/answer-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt",
   }
 
   package {'oracle-instantclient-basic':
