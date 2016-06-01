@@ -7,15 +7,17 @@ class php_oci8::config {
 
   exec {'update pecl channel for pecl.php.net':
     command => '/bin/pecl channel-update pecl.php.net',
-	  user    => root,
-	  timeout => 0,
-	  tries   => 5,
-	  unless  => '/usr/bin/php -m | grep -c oci8',
-	  before  => Exec['pecl-install-oci8'],
+    path    => ['/bin', '/usr/bin',],
+    user    => root,
+    timeout => 0,
+    tries   => 5,
+    unless  => '/usr/bin/php -m | grep -c oci8',
+    before  => Exec['pecl-install-oci8'],
   }
 
   exec {'pecl-install-oci8':
     command => "/bin/pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt",
+    path    => ['/bin', '/usr/bin',],
     user    => root,
     timeout => 0,
     tries   => 5,
