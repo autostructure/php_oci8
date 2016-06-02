@@ -4,7 +4,7 @@
 # It sets variables according to platform.
 #
 class php_oci8::params {
-  $package_prefix    = 'php5-'
+  $package_prefix    = 'php-'
   $major             = '12'
   $minor             = '1'
   $version           = '12.1.0.2.0'
