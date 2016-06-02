@@ -22,12 +22,21 @@ class php_oci8::config {
     timeout => 0,
     tries   => 5,
     unless  => '/usr/bin/php -m | grep -c oci8',
-    before  => File_line['add-oci8-php'],
+    before  => File['add-oci8-extension'],
   }
 
-  file_line {'add-oci8-php':
-    path => '/etc/php.ini',
-    line => 'extension=oci8.so',
+  #file_line {'add-oci8-php.ini':
+  #  path => '/etc/php.ini',
+  #  line => 'extension=oci8.so',
+  #}
+
+  file {'add-oci8-extension':
+    ensure  => file,
+    path    => '/etc/php.d/20-oci8.ini',
+	  owner   => 'root',
+	  group   => 'root',
+	  mode    => '0644',
+	  content => "extension=oci8.so\n",
   }
 
   file_line {'env-oracle-home':
