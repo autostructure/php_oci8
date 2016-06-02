@@ -42,9 +42,9 @@ class php_oci8::install {
     require         => [ File["${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm"], Package["oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}"]],
   }
 
-  #package {'php-devel':
-  #  ensure  => installed,
-  #  require => Class['php'];
-  #}
+  package {"${::php_oci8::package_prefix}-devel":
+    ensure  => installed,
+    require => Class['php'];
+  }
 
 }
