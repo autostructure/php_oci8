@@ -11,7 +11,7 @@
 #   e.g. "Specify one or more upstream ntp servers as an array."
 #
 class php_oci8 (
-  $package_prefix    = $::php_oci8::params::package_prefix
+  $package_prefix    = $::php_oci8::params::package_prefix,
   $major             = $::php_oci8::params::major,
   $minor             = $::php_oci8::params::minor,
   $version           = $::php_oci8::params::version,
