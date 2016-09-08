@@ -1,6 +1,8 @@
+#
 # == Class php_oci8::config
 #
 # This class is called from php_oci8 for service config.
+#
 #
 
 class php_oci8::config {
