@@ -1,50 +1,37 @@
 # == Class php_oci8::install
 #
-# This class is called from php_oci8 for install.
+# Author: Paul Talbot, Autostructure
 #
+# ===============================================
+#
+# @summary
+#   Called by init to install Oracle OCI8 for PHP on Linux
+#
+
 class php_oci8::install {
-
-  $file_base_location = "${::php_oci8::temp_location}/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}"
-
-  file {"${file_base_location}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm":
-    ensure  => present,
-    replace => 'no',
-    source  => "puppet:///modules/php_oci8/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
+  if $::php_oci8::instantclient_use_package_manager == true {
+    # custom package install using package manager
+    include php_oci8::install::package_manager
   }
-
-  file {"${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm":
-    ensure  => present,
-    #replace => 'no',
-    source  => "puppet:///modules/php_oci8/oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
+  elsif $::php_oci8::alternate_url != '' {
+    # install using non-Oracle URL from hiera
+    include php_oci8::install::alternate_url
+  }
+  else {
+    # install using Oracle's URL from hiera
+    include php_oci8::install::oracle_website
   }
 
   file {"${::php_oci8::temp_location}/answers-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt":
-    ensure  => present,
+    ensure => present,
     #replace => 'no',
-    source  => "puppet:///modules/php_oci8/answers-pecl-oci8-${php_oci8::major}.${::php_oci8::minor}.txt",
-  }
-
-  package {"oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}":
-    ensure          => installed,
-    #name            => "oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
-    provider        => 'rpm',
-    source          => "${file_base_location}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
-    install_options => '--force',
-    require         => File["${file_base_location}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm"],
-  }
-
-  package {"oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}":
-    ensure          => installed,
-    #name            => "oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
-    provider        => 'rpm',
-    source          => "${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm",
-    install_options => '--force',
-    require         => [ File["${file_base_location}-devel-${::php_oci8::version}-1.${::php_oci8::architecture}.rpm"], Package["oracle-instantclient${::php_oci8::major}.${::php_oci8::minor}-basic-${::php_oci8::version}-1.${::php_oci8::architecture}"]],
+    source => "puppet:///modules/php_oci8/answers-pecl-oci8-${php_oci8::major}.${::php_oci8::minor}.txt",
   }
 
   package {"${::php_oci8::package_prefix}devel":
-    ensure  => installed,
-    require => Class['php'];
+    ensure  => 'installed',
+    require => Class['php'],
+    #before  => Exec['pecl-install-oci8'],
   }
 
 }
