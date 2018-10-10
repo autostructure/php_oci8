@@ -3,93 +3,100 @@
 # Author: Paul Talbot, Autostructure
 #
 # ===============================================
+# TODO: make it so instant client can be managed outside module. 'unless' param
+# TODO: add logic for comparing fact for pecl_oci8_version to hiera
+# ===============================================
 #
 # @summary
 #   Installs and configures Oracle OCI8 for PHP on Linux
 #
 # @example Basic usage in respective profile(s)
 #   class { '::php_oci8':
-#     package_prefix        => $package_prefix,
-#     instantclient_major   => $major,
-#     instantclient_minor   => $minor,
-#     instantclient_version => $version,
-#     instantclient_source  => $source,
-#     architecture          => $architecture,
-#     temp_location         => $temp_location,
-#     pecl_oci8_version     => $pecl_oci8_version,
+#     package_prefix      => $package_prefix,
+#     pecl_oci8_version   => $pecl_oci8_version,
+#     instantclient_major => $instantclient_major,
+#     instantclient_minor => $instantclient_minor,
 #   }
 #
 # @param package_prefix
-#   Specifies PHP package prefix for PHP devel dependency in php_oci8::install class.
-#   Required - e.g. 'php-'
-#
-# @param alternate_url
-#   Base URL for alternate installer location
-#   Defaults to 'undef'
-#
-# @param oracle_url
-#   Base URL for Oracle's installer
-#   Defaults to 'http://download.oracle.com/otn/linux/instantclient/'
-#
-# @param instantclient_source
-#   Where to install package(s) from.
-#   Defaults to 'oracle_website'
-#
-# @param instantclient_major
-#   OCI8 package major version.
-#   Required - e.g. '12'
-#
-# @param instantclient_minor
-#   OCI8 package minor version.
-#   Required - e.g. '1'
-#
-# @param instantclient_patch_a
-#   OCI8 package patch version (a).
-#   Required - e.g. '1'
-#
-# @param instantclient_patch_b
-#   OCI8 package patch version (b).
-#   Required - e.g. '1'
-#
-# @param instantclient_patch_c
-#   OCI8 package patch version (c).
-#   Required - e.g. '1'
-#
-# @param instantclient_version
-#   Full OCI8 package version number.
-#   Required - e.g. '12.1.0.2.0'
-#
-# @param instantclient_product
-#   OCI8 product name according to Oracle.
-#   Defaults to 'oracle-instantclient'
-#
-# @param architecture
-#   Architecture of processor implemented.
-#   Defaults to $::facts['architecture'] - e.g. 'x86_64'
-#
-# @param temp_location
-#   Defaults to $::facts['env_temp_variable'] - e.g. '/tmp'
+#   Specifies PHP package prefix for devel dependency in php_oci8::install class.
+#   Required - defaults to 'php-' in hiera
 #
 # @param pecl_oci8_version
 #   PECL extension for Oracle version number.
-#   Required - e.g. '2.0.12'
+#   Required - defaults to '2.0.12' in hiera
+#
+# @param instantclient_major
+#   Major version of Oracle instant client to be installed
+#   Required - defaults to '18' in hiera
+#
+# @param instantclient_minor
+#   Minor version of Oracle instant client
+#   Required - defaults to '3' in hiera
+#
+# @param instantclient_patch_a
+#   First patch level of Oracle insant instantclient
+#   Required - defaults to '0' in hiera
+#
+# @param instantclient_patch_b
+#   Second patch level of Oracle instantclient
+#   Required - defaults to '0' in hiera
+#
+# @param instantclient_patch_c
+#   Third patch level of Oracle instantclient
+#   Required - defaults to '0' in hiera
+#
+# @param instantclient_product_name
+#   OCI8 product name according to Oracle.
+#   Required - defaults to 'oracle-instantclient' in hiera
+#
+# @param instantclient_use_package_manager
+#   Should system's package manager be used to install instant client?
+#   NOTE: when true, alternate package name parameters must be specified
+#   Required - defaults to 'false' in hiera
+#
+# @param oracle_url
+#   Base URL for Oracle's installer
+#   Required - defaults to 'http://download.oracle.com/otn/linux/instantclient/' in hiera
+#
+# @param oracle_url_proxy_type
+#   Type of proxy node requires to connect to Internet
+#   Required - defaults to 'none' in hiera
+#
+# @param oracle_url_proxy_server
+#   Proxy FQDN/address to use when accessing Oracle website
+#   Optional - defaults to 'undef' in class
+#
+# @ param alternate_basic_package_name
+#   Package name for "basic" instant client when *not* using Oracle's oracle_website
+#   Optional - e.g. 'oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64'
+#
+# @ param alternate_devel_package_name
+#   Package name for "devel" instant client when *not* using Oracle's oracle_website
+#   Optional - e.g. 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64'
+#
+# @param alternate_url
+#   Base URL for alternate installer location
+#   NOTE: ignored when instantclient_use_package_manager is true
+#   Optional - e.g. 'https://repository.my.tld/installers/oracle/instantclient/'
 #
 
 class php_oci8 (
   String $package_prefix,
+  String $pecl_oci8_version,
   Integer $instantclient_major,
   Integer $instantclient_minor,
   Integer $instantclient_patch_a,
   Integer $instantclient_patch_b,
   Integer $instantclient_patch_c,
   String $instantclient_product_name,
-  String $pecl_oci8_version,
   Boolean $instantclient_use_package_manager,
   String $oracle_url,
-  String $oracle_url_proxy_server,
-  String $oracle_url_proxy_type,
-  String $alternate_package_name,
-  String $alternate_url,
+  Enum['none', 'ftp', 'http', 'https'] $oracle_url_proxy_type,
+  Optional[String] $oracle_url_proxy_server,
+  Optional[String] $alternate_basic_package_name,
+  Optional[String] $alternate_devel_package_name,
+  Optional[String] $alternate_url,
   ) {
 
   class {'::php_oci8::install':}

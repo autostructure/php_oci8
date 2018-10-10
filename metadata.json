@@ -1,41 +1,49 @@
 {
   "name": "autostructure-php_oci8",
-  "version": "0.2.1",
-  "author": "autostructure",
-  "summary": "Install and configure OCI8 for PHP.",
+  "version": "0.1.0",
+  "author": "Paul Talbot",
+  "summary": "",
   "license": "Apache-2.0",
-  "source": "https://github.com/autostructure/php_oci8.git",
-  "project_page": "https://github.com/autostructure/php_oci8",
-  "issues_url": "https://github.com/autostructure/php_oci8/issues",
+  "source": "",
   "dependencies": [
     {
-      "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 1.0.0"
-    }
-    {
       "name": "puppet-archive",
-      "version_requirement": ">= 2.3.0"
-    }
-    {
-      "name": "puppet-php",
-      "version_requirement": ">= 6.0.0"
+      "version_requirement": ">= 3.0.0 < 4.0.0"
     }
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "Debian",
+      "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
         "7"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "5",
-        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
         "7"
       ]
     }
-  ]
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 7.0.0"
+    }
+  ],
+  "pdk-version": "1.7.1",
+  "template-url": "file://C:/Program Files/Puppet Labs/DevelopmentKit/share/cache/pdk-templates.git",
+  "template-ref": "1.7.1-0-g810b982"
 }

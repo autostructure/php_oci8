@@ -1,17 +1,21 @@
 ---
 
 php_oci8::package_prefix: 'php-'
-php_oci8::instantclient_major: '18'
-php_oci8::instantclient_minor: '3'
-php_oci8::instantclient_patch_a: '0'
-php_oci8::instantclient_patch_b: '0'
-php_oci8::instantclient_patch_c: '0'
+
 php_oci8::pecl_oci8_version: '2.0.1'
-php_oci8::oracle_url: 'http://download.oracle.com/otn/linux/instantclient/'
-php_oci8::oracle_url_proxy_server: ''
-php_oci8::oracle_url_proxy_type: ''
-php_oci8::alternate_url: ''
-php_oci8::alternate_basic_package_name: ''
-php_oci8::alternate_devel_package_name: ''
+
+php_oci8::instantclient_major: 18
+php_oci8::instantclient_minor: 3
+php_oci8::instantclient_patch_a: 0
+php_oci8::instantclient_patch_b: 0
+php_oci8::instantclient_patch_c: 0
 php_oci8::instantclient_product_name: 'oracle-instantclient'
 php_oci8::instantclient_use_package_manager: false
+
+php_oci8::oracle_url: 'http://download.oracle.com/otn/linux/instantclient/'
+php_oci8::oracle_url_proxy_server:
+php_oci8::oracle_url_proxy_type: 'none'
+
+php_oci8::alternate_basic_package_name:
+php_oci8::alternate_devel_package_name:
+php_oci8::alternate_url:

@@ -1,8 +1,13 @@
+# == Class php_oci8::install:oracle_website
 #
-# == Class php_oci8::install::oracle_website
+# Author: Paul Talbot, Autostructure
 #
-# This class is called from php_oci8::install
+# ===============================================
 #
+# ===============================================
+#
+# @summary
+#   Called by php_oci8::install class to install from default source
 #
 
 class php_oci8::install::oracle_website {
@@ -11,7 +16,7 @@ class php_oci8::install::oracle_website {
   include ::archive
 
   $temp_location = $::facts['env_temp_variable']
-  file { ${temp_location} :
+  file { $temp_location:
     ensure  => 'directory',
   }
 
@@ -63,6 +68,7 @@ class php_oci8::install::oracle_website {
     'rpm' : {
       $package_name_basic = "${::php_oci8::instantclient_product_name}${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}-${basic_name}-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.${::php_oci8::instantclient_patch_a}.${::php_oci8::instantclient_patch_b}.${::php_oci8::instantclient_patch_c}-1.${arch}.${package_type}"
       $package_name_devel = "${::php_oci8::instantclient_product_name}${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}-${devel_name}-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.${::php_oci8::instantclient_patch_a}.${::php_oci8::instantclient_patch_b}.${::php_oci8::instantclient_patch_c}-1.${arch}.${package_type}"
+    }
     default : {
       fail ("Unknown package type ${package_type}.")
     }
@@ -83,7 +89,7 @@ class php_oci8::install::oracle_website {
     cookie       => 'gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie',
     extract_path => $temp_location,
     cleanup      => false,
-    creates      => "${destination_basic}",
+    creates      => $destination_basic,
     proxy_server => $oracle_url_proxy_server,
     proxy_type   => $oracle_url_proxy_type,
   }
@@ -93,21 +99,23 @@ class php_oci8::install::oracle_website {
     cookie       => 'gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie',
     extract_path => $temp_location,
     cleanup      => false,
-    creates      => ${destination_devel},
-    proxy_server => ${oracle_url_proxy_server},
-    proxy_type   => ${oracle_url_proxy_type},
+    creates      => $destination_devel,
+    proxy_server => $oracle_url_proxy_server,
+    proxy_type   => $oracle_url_proxy_type,
+  }
 
   package { $destination_basic:
     ensure          => 'installed',
     provider        => 'rpm',
-    source          => ${destination_basic},
+    source          => $destination_basic,
     install_options => '--force',
     require         => Archive[$destination_basic],
+  }
 
   package { $destination_devel:
     ensure          => 'installed',
     provider        => 'rpm',
-    source          => ${destination_devel},
+    source          => $destination_devel,
     install_options => '--force',
     require         => Archive[$destination_devel],
   }
