@@ -39,7 +39,7 @@ describe 'php_oci8' do
 
       describe 'php_oci8::config' do
         it { is_expected.to contain_class('apache') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_owner('0') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_owner('0') }
         # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_group('0') }
         # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_mode('0644') }
         # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with('content' => %r{^extension=oci8.so\n}) }
