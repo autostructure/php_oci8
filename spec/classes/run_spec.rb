@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'php_oci8' do
   let(:facts) do
     {
-      'kernel' => 'Linux',
+      'kernel'            => 'Linux',
       'env_temp_variable' => '/tmp',
-      'osfamily' => 'RedHat'
+      'osfamily'          => 'RedHat'
     }
   end
 
@@ -14,8 +14,8 @@ describe 'php_oci8' do
       super().merge(
         'os' => {
           'architecture' => 'x86_64',
-          'family'  => 'RedHat',
-          'release' => {
+          'family'       => 'RedHat',
+          'release'      => {
             'major' => '6'
           }
         },
@@ -39,10 +39,10 @@ describe 'php_oci8' do
 
       describe 'php_oci8::config' do
         it { is_expected.to contain_class('apache') }
-        it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_owner('0') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_group('0') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_mode('0644') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with('content' => %r{^extension=oci8.so\n}) }
+        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_owner('0') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_group('0') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_mode('0644') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with('content' => %r{^extension=oci8.so\n}) }
       end
     end
 
@@ -66,10 +66,10 @@ describe 'php_oci8' do
 
       describe 'php_oci8::config' do
         it { is_expected.to contain_class('apache') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_owner('0') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_group('0') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_mode('0644') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with('content' => %r{^extension=oci8.so\n}) }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_owner('0') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_group('0') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_mode('0644') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with('content' => %r{^extension=oci8.so\n}) }
       end
     end
 
@@ -94,10 +94,10 @@ describe 'php_oci8' do
 
       describe 'php_oci8::config' do
         it { is_expected.to contain_class('apache') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_owner('0') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_group('0') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_mode('0644') }
-        #it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with('content' => %r{^extension=oci8.so\n}) }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_owner('0') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_group('0') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with_mode('0644') }
+        # it { is_expected.to contain_file('/etc/php.d/20-oci8.ini').with('content' => %r{^extension=oci8.so\n}) }
       end
     end
   end
