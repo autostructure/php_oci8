@@ -3,7 +3,7 @@
 # Author: Paul Talbot, Autostructure
 #
 # ===============================================
-# 
+#
 # ===============================================
 #
 # @summary
@@ -21,8 +21,8 @@ class php_oci8::install::alternate_url {
   }
 
   # package names from parent
-  $package_name_basic = $::php_oci8::package_name_basic
-  $package_name_devel = $::php_oci8::package_name_devel
+  $package_name_basic = $::php_oci8::alternate_package_name_basic
+  $package_name_devel = $::php_oci8::alternate_package_name_devel
 
   # absolute paths to the installers
   $destination_basic = "${temp_location}/${package_name_basic}"

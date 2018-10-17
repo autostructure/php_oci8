@@ -67,11 +67,11 @@
 #   Proxy FQDN/address to use when accessing Oracle website
 #   Optional - defaults to 'undef' in class
 #
-# @ param alternate_basic_package_name
+# @ param alternate_package_name_basic
 #   Package name for "basic" instant client when *not* using Oracle's oracle_website
 #   Optional - e.g. 'oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64'
 #
-# @ param alternate_devel_package_name
+# @ param alternate_package_name_devel
 #   Package name for "devel" instant client when *not* using Oracle's oracle_website
 #   Optional - e.g. 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64'
 #
@@ -94,8 +94,8 @@ class php_oci8 (
   String $oracle_url,
   Enum['none', 'ftp', 'http', 'https'] $oracle_url_proxy_type,
   Optional[String] $oracle_url_proxy_server,
-  Optional[String] $alternate_basic_package_name,
-  Optional[String] $alternate_devel_package_name,
+  Optional[String] $alternate_package_name_basic,
+  Optional[String] $alternate_package_name_devel,
   Optional[String] $alternate_url,
   ) {
 

@@ -12,6 +12,10 @@
 
 class php_oci8::config {
 
+
+  # Apache included for restart after oracle home
+  include ::apache
+
   exec {'update pecl channel for pecl.php.net':
     command => 'pecl channel-update pecl.php.net',
     path    => ['/bin', '/usr/bin',],
@@ -23,7 +27,7 @@ class php_oci8::config {
   }
 
   exec {'pecl-install-oci8':
-    command => "pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::major}.${::php_oci8::minor}.txt",
+    command => "pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",
     path    => ['/bin', '/usr/bin',],
     user    => root,
     timeout => 0,
@@ -43,7 +47,7 @@ class php_oci8::config {
 
   file_line {'env-oracle-home':
     path   => '/etc/environment',
-    line   => "export ORACLE_HOME=/usr/lib/oracle/${::php_oci8::major}.${::php_oci8::minor}/client64/lib",
+    line   => "export ORACLE_HOME=/usr/lib/oracle/${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}/client64/lib",
     match  => '^export\ ORACLE_HOME\=',
     notify => Service['httpd'],
   }

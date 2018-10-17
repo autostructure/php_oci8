@@ -56,7 +56,7 @@ class php_oci8::install::oracle_website {
       $devel_name = 'devel'
     }
     default : {
-      fail ("Unsupported architecture ${$facts['os']['architecture']}")
+      fail ("Unsupported architecture ${$facts['os']['architecture']}.")
     }
   }
 

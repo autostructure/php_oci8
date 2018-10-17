@@ -9,7 +9,8 @@ if File.File? '/bin/pecl'
     pecl_oci8_extension['version'] = {
       'major' => df_output_array[1].to_i,
       'minor' => df_output_array[2].to_i,
-      'patch' => df_output_array[3].to_i
+      'patch' => df_output_array[3].to_i,
+      'full' => "#{df_output_array[1].to_s}.#{df_output_array[2].to_s}.#{df_output_array[3].to_s}",
     }
   end
 
