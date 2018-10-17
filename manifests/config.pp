@@ -3,7 +3,8 @@
 # Author: Paul Talbot, Autostructure
 #
 # ===============================================
-#
+# TODO: add logic to compare installed pecl oci8 extention to what
+#       is specified in hiera
 # ===============================================
 #
 # @summary
@@ -32,8 +33,15 @@ class php_oci8::config {
     user    => root,
     timeout => 0,
     tries   => 5,
-    unless  => ['/usr/bin/php -m | grep -c oci8',], #TODO: test for version of installed/specified]
+    unless  => ['/usr/bin/php -m | grep -c oci8',], #TODO: test for version of installed/specified
     before  => File['add-oci8-extension'],
+  }
+
+  file {'etc-php.d':
+    ensure => directory,
+    path   => '/etc/php.d',
+    owner  => 'root',
+    group  => 'root',
   }
 
   file {'add-oci8-extension':

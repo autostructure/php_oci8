@@ -42,11 +42,4 @@ class php_oci8::install {
     source => "puppet:///modules/php_oci8/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",
   }
 
-  #package {"${::php_oci8::package_prefix}devel":
-  #  ensure  => 'installed',
-  #  name    => '',
-  #  require => Class['php'],
-  #  #before  => Exec['pecl-install-oci8'],
-  #}
-
 }

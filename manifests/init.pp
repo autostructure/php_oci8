@@ -12,15 +12,10 @@
 #
 # @example Basic usage in respective profile(s)
 #   class { '::php_oci8':
-#     package_prefix      => $package_prefix,
 #     pecl_oci8_version   => $pecl_oci8_version,
 #     instantclient_major => $instantclient_major,
 #     instantclient_minor => $instantclient_minor,
 #   }
-#
-# @param package_prefix
-#   Specifies PHP package prefix for devel dependency in php_oci8::install class.
-#   Required - defaults to 'php-' in hiera
 #
 # @param pecl_oci8_version
 #   PECL extension for Oracle version number.
@@ -67,11 +62,11 @@
 #   Proxy FQDN/address to use when accessing Oracle website
 #   Optional - defaults to 'undef' in class
 #
-# @ param alternate_package_name_basic
+# @param alternate_package_name_basic
 #   Package name for "basic" instant client when *not* using Oracle's oracle_website
 #   Optional - e.g. 'oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64'
 #
-# @ param alternate_package_name_devel
+# @param alternate_package_name_devel
 #   Package name for "devel" instant client when *not* using Oracle's oracle_website
 #   Optional - e.g. 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64'
 #
@@ -82,7 +77,6 @@
 #
 
 class php_oci8 (
-  String $package_prefix,
   String $pecl_oci8_version,
   Integer $instantclient_major,
   Integer $instantclient_minor,

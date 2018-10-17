@@ -3,7 +3,8 @@ fixtures:
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
   forge_modules:
     archive: "puppet/archive"
-    php:     "puppet/php"
     apache:  "puppetlabs/apache"
+    concat:  "puppetlabs/concat"
+    php:     "puppet/php"
   symlinks:
     php_oci8: "#{source_dir}"

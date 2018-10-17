@@ -20,7 +20,7 @@ class php_oci8::install::alternate_url {
     ensure  => 'directory',
   }
 
-  # package names from parent
+  # package names from parent class
   $package_name_basic = $::php_oci8::alternate_package_name_basic
   $package_name_devel = $::php_oci8::alternate_package_name_devel
 
@@ -45,6 +45,7 @@ class php_oci8::install::alternate_url {
       fail ("Unsupported platform ${$facts['kernel']}.") }
   }
 
+  # alternat URL from parent class
   $alternate_url = $::php_oci8::alternate_url
 
   archive { $destination_basic:
