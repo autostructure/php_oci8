@@ -8,7 +8,7 @@
 # ===============================================
 #
 # @summary
-#   Called by init to configure Oracle OCI8 for PHP on Linux
+#   Called by init (after install class) to configure Oracle OCI8 for PHP on Linux
 #
 
 class php_oci8::config {
@@ -35,13 +35,6 @@ class php_oci8::config {
     tries   => 5,
     unless  => ['/usr/bin/php -m | grep -c oci8',], #TODO: test for version of installed/specified
     before  => File['add-oci8-extension'],
-  }
-
-  file {'etc-php.d':
-    ensure => directory,
-    path   => '/etc/php.d',
-    owner  => 'root',
-    group  => 'root',
   }
 
   file {'add-oci8-extension':
