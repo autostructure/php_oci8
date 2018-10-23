@@ -18,7 +18,7 @@
 #   }
 #
 # @param pecl_oci8_version
-#   PECL extension for Oracle version number.
+#   PECL extension for OCI8 version number
 #   Required - defaults to '2.0.12' in hiera
 #
 # @param instantclient_major

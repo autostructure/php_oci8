@@ -15,15 +15,17 @@ class php_oci8::install::oracle_website {
   # archive module is used to download packages
   include ::archive
 
+  # this variable is used for storing installer binary for package resource
   $temp_location = $::facts['env_temp_variable']
   file { $temp_location:
     ensure  => 'directory',
   }
 
+  # if a proxy is required to reach Internet for Oracle website, values come from hiera
   $oracle_url_proxy_server = $::php_oci8::oracle_url_proxy_server
   $oracle_url_proxy_type = $::php_oci8::oracle_url_proxy_type
 
-  # determine package type
+  # determine package provider for package resources below
   case $facts['kernel'] {
     'Linux' : {
       case $facts['os']['family'] {
@@ -38,7 +40,7 @@ class php_oci8::install::oracle_website {
       fail ( "Unsupported platform ${$facts['kernel']}." ) }
   }
 
-  # architecture mapping
+  # architecture mapping for package name
   case $facts['os']['architecture'] {
     'i386' : {
       $arch = 'i386'
@@ -60,7 +62,7 @@ class php_oci8::install::oracle_website {
     }
   }
 
-  # following are based on these examples:
+  # following package names are based on these examples:
   # http://download.oracle.com/otn/linux/instantclient/183000/oracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm
   # http://download.oracle.com/otn/linux/instantclient/183000/oracle-instantclient18.3-basiclite-18.3.0.0.0-1.i386.rpm
   #
@@ -83,6 +85,7 @@ class php_oci8::install::oracle_website {
   #notice ("Destination for basic is ${destination_basic}.")
   #notice ("Destination for devel is ${destination_devel}.")
 
+  # get basic package installer from URL
   archive { $destination_basic:
     ensure       => 'present',
     source       => $source_basic,
@@ -93,6 +96,8 @@ class php_oci8::install::oracle_website {
     proxy_server => $oracle_url_proxy_server,
     proxy_type   => $oracle_url_proxy_type,
   }
+
+  # get devel package installer from URL
   archive { $destination_devel:
     ensure       => 'present',
     source       => $source_devel,
@@ -104,6 +109,7 @@ class php_oci8::install::oracle_website {
     proxy_type   => $oracle_url_proxy_type,
   }
 
+  # install basic package
   package { $destination_basic:
     ensure          => 'installed',
     provider        => 'rpm',
@@ -112,6 +118,7 @@ class php_oci8::install::oracle_website {
     require         => Archive[$destination_basic],
   }
 
+  # install devel package
   package { $destination_devel:
     ensure          => 'installed',
     provider        => 'rpm',

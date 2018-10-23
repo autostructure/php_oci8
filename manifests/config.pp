@@ -3,7 +3,7 @@
 # Author: Paul Talbot, Autostructure
 #
 # ===============================================
-# TODO: add logic to compare installed pecl oci8 extention to what
+# TODO: refine logic to compare installed pecl oci8 extention to what
 #       is specified in hiera
 # ===============================================
 #
@@ -13,9 +13,8 @@
 
 class php_oci8::config {
 
-
   # Apache included for restart after oracle home
-  include ::apache
+  #include ::apache
 
   exec {'update pecl channel for pecl.php.net':
     command => 'pecl channel-update pecl.php.net',
@@ -33,7 +32,7 @@ class php_oci8::config {
     user    => root,
     timeout => 0,
     tries   => 5,
-    unless  => ['/usr/bin/php -m | grep -c oci8',], #TODO: test for version of installed/specified
+    unless  => [${::php_oci8::pecl_oci8_version} == $facts['pecl_oci8_extension']['full'],],
     before  => File['add-oci8-extension'],
   }
 
@@ -47,17 +46,17 @@ class php_oci8::config {
   }
 
   file_line {'env-oracle-home':
-    path   => '/etc/environment',
-    line   => "export ORACLE_HOME=/usr/lib/oracle/${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}/client64/lib",
-    match  => '^export\ ORACLE_HOME\=',
-    notify => Service['httpd'],
+    path  => '/etc/environment',
+    line  => "export ORACLE_HOME=/usr/lib/oracle/${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}/client64/lib",
+    match => '^export\ ORACLE_HOME\=',
+    #notify => Service['httpd'],
   }
 
   file_line {'env-oracle-nls-date-format':
-    path   => '/etc/environment',
-    line   => "export NLS_DATE_FORMAT=\"DD/MM/YYYY HH24:MI\"",
-    match  => '^export\ NLS_DATE_FORMAT\=',
-    notify => Service['httpd'],
+    path  => '/etc/environment',
+    line  => "export NLS_DATE_FORMAT=\"DD/MM/YYYY HH24:MI\"",
+    match => '^export\ NLS_DATE_FORMAT\=',
+    #notify => Service['httpd'],
   }
 
 }
