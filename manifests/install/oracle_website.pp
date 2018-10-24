@@ -76,8 +76,8 @@ class php_oci8::install::oracle_website {
     }
   }
 
-  $source_basic = "${::php_oci8::oracle_url}${::php_oci8::instantclient_major}${::php_oci8::instantclient_minor}${::php_oci8::instantclient_patch_a}${::php_oci8::instantclient_patch_b}${::php_oci8::instantclient_patch_c}/${package_name_basic}"
-  $source_devel = "${::php_oci8::oracle_url}${::php_oci8::instantclient_major}${::php_oci8::instantclient_minor}${::php_oci8::instantclient_patch_a}${::php_oci8::instantclient_patch_b}${::php_oci8::instantclient_patch_c}/${package_name_devel}"
+  $source_basic = "${::php_oci8::oracle_url}/${::php_oci8::instantclient_major}${::php_oci8::instantclient_minor}${::php_oci8::instantclient_patch_a}${::php_oci8::instantclient_patch_b}${::php_oci8::instantclient_patch_c}/${package_name_basic}"
+  $source_devel = "${::php_oci8::oracle_url}/${::php_oci8::instantclient_major}${::php_oci8::instantclient_minor}${::php_oci8::instantclient_patch_a}${::php_oci8::instantclient_patch_b}${::php_oci8::instantclient_patch_c}/${package_name_devel}"
 
   # full path(s) to the installers
   $destination_basic = "${temp_location}/${package_name_basic}"

@@ -3,8 +3,8 @@
 # Author: Paul Talbot, Autostructure
 #
 # ===============================================
-# TODO: make it so instant client can be managed outside module. 'unless' param
-# TODO: add logic for comparing fact for pecl_oci8_version to hiera
+# TODO: update pecl answers file content to be dynamic and NOT in a file from files
+# TODO: Make hash of cookies work for downloading from Oracle website
 # ===============================================
 #
 # @summary
