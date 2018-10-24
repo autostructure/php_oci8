@@ -1,4 +1,4 @@
-if File.File? '/bin/pecl'
+if File.file? '/bin/pecl'
 
   pecl_output = Facter::Core::Execution.exec('/bin/pecl info oci8 | grep "^Release Version" | cut -d " " -f 9')
   pecl_output_array = pecl_output.split('.')
