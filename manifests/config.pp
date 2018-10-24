@@ -26,13 +26,20 @@ class php_oci8::config {
     before  => Exec['pecl-install-oci8'],
   }
 
+if ${::php_oci8::pecl_oci8_version} == ${facts}['pecl_oci8_extension']['full'] {
+  ${pecl_version_match} = true
+}
+else {
+  ${pecl_version_match} = false
+}
+
   exec {'pecl-install-oci8':
     command => "pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",
     path    => ['/bin', '/usr/bin',],
     user    => root,
     timeout => 0,
     tries   => 5,
-    unless  => "if [ ${::php_oci8::pecl_oci8_version} == ${facts}['pecl_oci8_extension']['full'] ]",
+    unless  => "${pecl_version_match}",
     before  => File['add-oci8-extension'],
   }
 
