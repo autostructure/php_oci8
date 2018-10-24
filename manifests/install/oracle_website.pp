@@ -76,8 +76,8 @@ class php_oci8::install::oracle_website {
     }
   }
 
-  $source_basic = "${::php_oci8::oracle_url}/${::php_oci8::instantclient_major}${::php_oci8::instantclient_minor}${::php_oci8::instantclient_patch_a}${::php_oci8::instantclient_patch_b}${::php_oci8::instantclient_patch_c}/${package_name_basic}"
-  $source_devel = "${::php_oci8::oracle_url}/${::php_oci8::instantclient_major}${::php_oci8::instantclient_minor}${::php_oci8::instantclient_patch_a}${::php_oci8::instantclient_patch_b}${::php_oci8::instantclient_patch_c}/${package_name_devel}"
+  $source_basic = "${::php_oci8::oracle_url}${::php_oci8::instantclient_major}${::php_oci8::instantclient_minor}${::php_oci8::instantclient_patch_a}${::php_oci8::instantclient_patch_b}${::php_oci8::instantclient_patch_c}/${package_name_basic}"
+  $source_devel = "${::php_oci8::oracle_url}${::php_oci8::instantclient_major}${::php_oci8::instantclient_minor}${::php_oci8::instantclient_patch_a}${::php_oci8::instantclient_patch_b}${::php_oci8::instantclient_patch_c}/${package_name_devel}"
 
   # full path(s) to the installers
   $destination_basic = "${temp_location}/${package_name_basic}"
@@ -85,11 +85,27 @@ class php_oci8::install::oracle_website {
   #notice ("Destination for basic is ${destination_basic}.")
   #notice ("Destination for devel is ${destination_devel}.")
 
+  $cookie = "${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}" ? {
+    '18.3'  => {
+      gpw_e24           => 'https%3A%2F%2Fwww.oracle.com%2Ftechnetwork%2Ftopics%2Flinuxx86-64soft-092277.html',
+      oraclelicense     => 'accept-ic_linuxx8664-cookie',
+      testSessionCookie => 'Enabled',
+      s_vi              => '[CS]v1|2DE861968507F55C-400001094002CCCE[CE]',
+      s_sq              => '%5B%5BB%5D%5D',
+      s_nr              => '1540408109310-New',
+      s_fid             => '74A0BFF195248FD1-13B522AF2AC4A11F',
+      RT                => '"nu=http%3A%2F%2Fdownload.oracle.com%2Fotn%2Flinux%2Finstantclient%2F183000%2Foracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm&dm=oracle.com&si=cdc4505d-9942-4221-b93b-00a56980aae7&ss=1540406878572&sl=4&tt=14778&obo=0&sh=1540408085592%3D4%3A0%3A14778%2C1540407565336%3D3%3A0%3A10325%2C1540407544004%3D2%3A0%3A8905%2C1540406884059%3D1%3A0%3A5473&cl=1540408109307&bcn=%2F%2F36cc206a.akstat.io%2F"',
+    },
+    default => {},
+  }
+
+  notice ("Cookie: ${cookie}[testSessionCookie]")
+
   # get basic package installer from URL
   archive { $destination_basic:
     ensure       => 'present',
     source       => $source_basic,
-    cookie       => 'gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie',
+    cookie       => 'gpw_e24=https%3A%2F%2Fwww.oracle.com%2Ftechnetwork%2Ftopics%2Flinuxx86-64soft-092277.html; oraclelicense=accept-ic_linuxx8664-cookie',
     extract_path => $temp_location,
     cleanup      => false,
     creates      => $destination_basic,
@@ -101,7 +117,7 @@ class php_oci8::install::oracle_website {
   archive { $destination_devel:
     ensure       => 'present',
     source       => $source_devel,
-    cookie       => 'gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie',
+    cookie       => 'gpw_e24=https%3A%2F%2Fwww.oracle.com%2Ftechnetwork%2Ftopics%2Flinuxx86-64soft-092277.html; oraclelicense=accept-ic_linuxx8664-cookie',
     extract_path => $temp_location,
     cleanup      => false,
     creates      => $destination_devel,
