@@ -32,7 +32,7 @@ class php_oci8::config {
     user    => root,
     timeout => 0,
     tries   => 5,
-    unless  => [${::php_oci8::pecl_oci8_version} == $facts['pecl_oci8_extension']['full'],],
+    unless  => "if [ ${::php_oci8::pecl_oci8_version} == ${facts}['pecl_oci8_extension']['full'] ]",
     before  => File['add-oci8-extension'],
   }
 
