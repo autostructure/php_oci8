@@ -28,15 +28,11 @@ class php_oci8::config {
 
   if $facts['pecl_oci8_extension']['version']['full'] == $::php_oci8::pecl_oci8_version {
     #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] MATCHES ${::php_oci8::pecl_oci8_version}")
-    notify { 'compare-output':
-      message => 'TRUE: should produce output.'
-    }
+    notify { 'TRUE: should produce output.': }
   }
   else {
     #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] DOES NOT MATCH ${::php_oci8::pecl_oci8_version}")
-    notify { 'compare-output':
-      message => 'FALSE: should produce output.'
-    }
+    notify { 'FALSE: should produce output.': }
   }
 
   exec {'pecl-install-oci8':
