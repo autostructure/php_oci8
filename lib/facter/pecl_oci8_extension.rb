@@ -18,7 +18,6 @@ if File.file? '/bin/pecl'
       'minor' => pecl_output_array[1].to_i,
       'patch' => pecl_output_array[2].to_i,
       'full'  => pecl_output.to_s,
-      #'full' => "#{df_output_array[0]}.#{df_output_array[1]}.#{df_output_array[2]}"
     }
   end
 
