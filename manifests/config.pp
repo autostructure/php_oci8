@@ -26,6 +26,8 @@ class php_oci8::config {
     before  => Exec['pecl-install-oci8'],
   }
 
+  notify { 'produce output for test.': }
+
   if $facts['pecl_oci8_extension']['version']['full'] == $::php_oci8::pecl_oci8_version {
     #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] MATCHES ${::php_oci8::pecl_oci8_version}")
     notify { 'TRUE: should produce output.': }
