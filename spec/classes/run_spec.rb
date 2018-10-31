@@ -5,7 +5,12 @@ describe 'php_oci8' do
     {
       'kernel'            => 'Linux',
       'env_temp_variable' => '/tmp',
-      'osfamily'          => 'RedHat'
+      'osfamily'          => 'RedHat',
+      'pecl_oci8_extension' => {
+        'version' => {
+          'full' => '1.2.3',
+        },
+      },
     }
   end
 
@@ -16,8 +21,8 @@ describe 'php_oci8' do
           'architecture' => 'x86_64',
           'family'       => 'RedHat',
           'release'      => {
-            'major' => '6'
-          }
+            'major' => '6',
+          },
         },
         'operatingsystem'           => 'RedHat',
         'operatingsystemrelease'    => '6.10',
@@ -55,7 +60,7 @@ describe 'php_oci8' do
           {
             instantclient_use_package_manager: true,
             alternate_package_name_basic: 'oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64',
-            alternate_package_name_devel: 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64'
+            alternate_package_name_devel: 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64',
           }
         end
 
@@ -81,7 +86,7 @@ describe 'php_oci8' do
           {
             alternate_url: 'http://download.oracle.com/otn/linux/instantclient/',
             alternate_package_name_basic: 'oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64',
-            alternate_package_name_devel: 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64'
+            alternate_package_name_devel: 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64',
           }
         end
 
@@ -106,8 +111,8 @@ describe 'php_oci8' do
           'architecture' => 'x86_64',
           'family'       => 'RedHat',
           'release'      => {
-            'major' => '7'
-          }
+            'major' => '7',
+          },
         },
         'operatingsystem'           => 'RedHat',
         'operatingsystemrelease'    => '7.5',
@@ -145,7 +150,7 @@ describe 'php_oci8' do
           {
             instantclient_use_package_manager: true,
             alternate_package_name_basic: 'oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64',
-            alternate_package_name_devel: 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64'
+            alternate_package_name_devel: 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64',
           }
         end
 
@@ -171,7 +176,7 @@ describe 'php_oci8' do
           {
             alternate_url: 'http://download.oracle.com/otn/linux/instantclient/',
             alternate_package_name_basic: 'oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64',
-            alternate_package_name_devel: 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64'
+            alternate_package_name_devel: 'oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64',
           }
         end
 
