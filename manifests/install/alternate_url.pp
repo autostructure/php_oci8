@@ -16,7 +16,7 @@ class php_oci8::install::alternate_url {
   include ::archive
 
   # this variable is used for storing installer binary for package resource
-  $temp_location = $::facts['env_temp_variable']
+  $temp_location = $::facts['where_is_temp']
   file { $temp_location:
     ensure  => 'directory',
   }

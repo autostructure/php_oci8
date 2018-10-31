@@ -15,7 +15,7 @@ class php_oci8::install {
   # PHP required for devel package
   include ::php
 
-  $temp_location = $::facts['env_temp_variable']
+  $temp_location = $::facts['where_is_temp']
 
   if $::php_oci8::instantclient_use_package_manager == true {
     #

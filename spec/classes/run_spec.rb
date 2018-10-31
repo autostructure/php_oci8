@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'php_oci8' do
   let(:facts) do
     {
-      'kernel'            => 'Linux',
-      'env_temp_variable' => '/tmp',
-      'osfamily'          => 'RedHat',
+      'kernel'              => 'Linux',
+      'where_is_temp'       => '/tmp',
+      'osfamily'            => 'RedHat',
       'pecl_oci8_extension' => {
         'version' => {
           'full' => '2.0.7',
