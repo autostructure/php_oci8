@@ -5,7 +5,12 @@ describe 'php_oci8' do
     {
       'kernel'            => 'Linux',
       'env_temp_variable' => '/tmp',
-      'osfamily'          => 'RedHat'
+      'osfamily'          => 'RedHat',
+      'pecl_oci8_extension' => {
+        'version' => {
+          'full' => '2.0.7',
+        }
+      }
     }
   end
 
