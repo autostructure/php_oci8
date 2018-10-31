@@ -17,7 +17,7 @@ if File.file? '/bin/pecl'
       'major' => pecl_output_array[0].to_i,
       'minor' => pecl_output_array[1].to_i,
       'patch' => pecl_output_array[2].to_i,
-      'full'  => pecl_output.to_s,
+      'full'  => pecl_output.to_s
     }
   end
 

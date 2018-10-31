@@ -26,7 +26,7 @@ class php_oci8::config {
     before  => Exec['pecl-install-oci8'],
   }
 
-  notice ("FACT: $::facts['pecl_oci8_version']['version']['full']")
+  notice ("FACT: ${::facts}['pecl_oci8_version']['version']['full']")
 
   #if $::facts['pecl_oci8_version']['version']['full'] == ${::php_oci8::pecl_oci8_version} {
   #  #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] MATCHES ${::php_oci8::pecl_oci8_version}")
