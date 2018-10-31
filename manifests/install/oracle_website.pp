@@ -97,7 +97,7 @@ class php_oci8::install::oracle_website {
 #    },
 #    default => {},
 #  }
-
+  $cookie = {}
   notice ("Cookie: ${cookie}[testSessionCookie]")
 
   # get basic package installer from URL
