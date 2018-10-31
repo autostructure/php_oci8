@@ -12,12 +12,12 @@
 #
 # @example Basic usage in respective profile(s)
 #   class { '::php_oci8':
-#     pecl_oci8_version   => $pecl_oci8_version,
+#     pecl_oci8_extension   => $pecl_oci8_extension,
 #     instantclient_major => $instantclient_major,
 #     instantclient_minor => $instantclient_minor,
 #   }
 #
-# @param pecl_oci8_version
+# @param pecl_oci8_extension
 #   PECL extension for OCI8 version number
 #   Required - defaults to '2.0.12' in hiera
 #
@@ -77,7 +77,7 @@
 #
 
 class php_oci8 (
-  String $pecl_oci8_version,
+  String $pecl_oci8_extension,
   Integer $instantclient_major,
   Integer $instantclient_minor,
   Integer $instantclient_patch_a,
@@ -94,7 +94,7 @@ class php_oci8 (
   ) {
 
   class {'::php_oci8::install':}
-  -> Class { '::php_oci8::config': }
+  ~> Class { '::php_oci8::config': }
   -> Class['::php_oci8']
 
 }

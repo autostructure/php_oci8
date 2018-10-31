@@ -21,19 +21,19 @@ class php_oci8::install {
     #
     # custom package install using package manager ##################
     #
-    include php_oci8::install::package_manager
+    contain php_oci8::install::package_manager
   }
   elsif $::php_oci8::alternate_url {
     #
     # install using non-Oracle URL from hiera #######################
     #
-    include php_oci8::install::alternate_url
+    contain php_oci8::install::alternate_url
   }
   else {
     #
     # install using Oracle's URL from hiera #########################
     #
-    include php_oci8::install::oracle_website
+    contain php_oci8::install::oracle_website
   }
 
   file {"${temp_location}/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt":

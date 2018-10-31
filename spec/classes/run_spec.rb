@@ -71,7 +71,7 @@ describe 'php_oci8' do
       describe 'php_oci8::config' do
         let(:params) do
           {
-            pecl_oci8_version: '2.0.7',
+            pecl_oci8_extension: '2.0.7',
           }
         end
 
@@ -104,7 +104,7 @@ describe 'php_oci8' do
       describe 'php_oci8::config' do\
         let(:params) do
           {
-            pecl_oci8_version: '2.0.7',
+            pecl_oci8_extension: '2.0.7',
           }
         end
 
@@ -147,7 +147,7 @@ describe 'php_oci8' do
       describe 'php_oci8::config' do
         let(:params) do
           {
-            pecl_oci8_version: '2.0.7',
+            pecl_oci8_extension: '2.0.7',
           }
         end
 
@@ -179,7 +179,7 @@ describe 'php_oci8' do
       describe 'php_oci8::config' do
         let(:params) do
           {
-            pecl_oci8_version: '2.0.7',
+            pecl_oci8_extension: '2.0.7',
           }
         end
 
@@ -212,7 +212,7 @@ describe 'php_oci8' do
       describe 'php_oci8::config' do
         let(:params) do
           {
-            pecl_oci8_version: '2.0.7',
+            pecl_oci8_extension: '2.0.7',
           }
         end
 

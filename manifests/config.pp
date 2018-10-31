@@ -17,35 +17,38 @@ class php_oci8::config {
   #include ::apache
 
   exec {'update pecl channel for pecl.php.net':
-    command => 'pecl channel-update pecl.php.net',
-    path    => ['/bin', '/usr/bin',],
-    user    => root,
-    timeout => 0,
-    tries   => 5,
-    unless  => '/usr/bin/php -m | grep -c oci8',
-    before  => Exec['pecl-install-oci8'],
+    command     => 'pecl channel-update pecl.php.net',
+    path        => ['/bin', '/usr/bin',],
+    user        => root,
+    timeout     => 0,
+    tries       => 5,
+    # unless  => '/usr/bin/php -m | grep -c oci8
+    refreshonly => true,
+    before      => Exec['pecl-install-oci8'],
   }
 
-  #notice ("FACT: ${::facts}['pecl_oci8_version']['version']['full']")
-  notify { 'Without fact.': }
-  warning('This is a warning.')
-  #if $::facts['pecl_oci8_version']['version']['full'] == ${::php_oci8::pecl_oci8_version} {
-  #  #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] MATCHES ${::php_oci8::pecl_oci8_version}")
-  #  notify { 'TRUE: should produce output.': }
-  #}
-  #else {
-  #  #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] DOES NOT MATCH ${::php_oci8::pecl_oci8_version}")
-  #  notify { 'FALSE: should produce output.': }
-  #}
+  # notify { "FACT: ${::facts}['pecl_oci8_extension']['version']['full']": }
+  # notify { 'Without fact.': }
+  # warning('This is a warning.')
+#
+  # if($::facts['pecl_oci8_extension']['version']['full'] == ::php_oci8::pecl_oci8_extension) {
+  #   #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] MATCHES ${::php_oci8::pecl_oci8_extension}")
+  #   notify { 'TRUE: should produce output.': }
+  # }
+  # else {
+  #   #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] DOES NOT MATCH ${::php_oci8::pecl_oci8_extension}")
+  #   notify { 'FALSE: should produce output.': }
+  # }
 
   exec {'pecl-install-oci8':
-    command => "pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",
-    path    => ['/bin', '/usr/bin',],
-    user    => root,
-    timeout => 0,
-    tries   => 5,
+    command     => "pecl install oci8-${::php_oci8::pecl_oci8_extension} </tmp/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",
+    path        => ['/bin', '/usr/bin',],
+    user        => root,
+    timeout     => 0,
+    tries       => 5,
     #unless  => $pecl_version_match,
-    before  => File['add-oci8-extension'],
+    refreshonly => true,
+    before      => File['add-oci8-extension'],
   }
 
   file {'add-oci8-extension':

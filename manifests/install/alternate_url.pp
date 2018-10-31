@@ -68,7 +68,7 @@ class php_oci8::install::alternate_url {
   }
 
   # install basic package
-  package { $destination_basic:
+  package { 'instantclient-basic':
     ensure          => 'installed',
     provider        => $package_provider,
     source          => $destination_basic,
@@ -77,7 +77,7 @@ class php_oci8::install::alternate_url {
   }
 
   # install devel package
-  package { $destination_devel:
+  package { 'instantclient-development':
     ensure          => 'installed',
     provider        => $package_provider,
     source          => $destination_devel,

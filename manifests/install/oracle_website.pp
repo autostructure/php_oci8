@@ -98,7 +98,7 @@ $cookie = "${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}
   default => {},
 }
 
-  notify { "Cookie: ${cookie}[testSessionCookie]": }
+  # notify { "Cookie: ${cookie}[testSessionCookie]": }
 
   # get basic package installer from URL
   archive { $destination_basic:
@@ -125,7 +125,7 @@ $cookie = "${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}
   }
 
   # install basic package
-  package { $destination_basic:
+  package { 'instantclient-basic':
     ensure          => 'installed',
     provider        => 'rpm',
     source          => $destination_basic,
@@ -134,7 +134,7 @@ $cookie = "${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}
   }
 
   # install devel package
-  package { $destination_devel:
+  package { 'instantclient-development':
     ensure          => 'installed',
     provider        => 'rpm',
     source          => $destination_devel,

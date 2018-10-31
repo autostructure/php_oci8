@@ -13,13 +13,12 @@ describe 'php_oci8 class' do
       apply_manifest(pp, catch_changes: true)
     end
 
-    describe package('php_oci8') do
+    describe package('instantclient-basic') do
       it { is_expected.to be_installed }
     end
 
-    describe service('php_oci8') do
-      it { is_expected.to be_enabled }
-      it { is_expected.to be_running }
+    describe package('instantclient-development') do
+      it { is_expected.to be_installed }
     end
   end
 end
