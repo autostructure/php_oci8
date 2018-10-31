@@ -27,8 +27,8 @@ class php_oci8::config {
   }
 
   #notice ("FACT: ${::facts}['pecl_oci8_version']['version']['full']")
-  notice ("Without fact.")
-
+  notice("Without fact.")
+  warning('This is a warning.')
   #if $::facts['pecl_oci8_version']['version']['full'] == ${::php_oci8::pecl_oci8_version} {
   #  #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] MATCHES ${::php_oci8::pecl_oci8_version}")
   #  notify { 'TRUE: should produce output.': }
