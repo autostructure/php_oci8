@@ -8,7 +8,7 @@ describe 'php_oci8' do
       'osfamily'          => 'RedHat',
       'pecl_oci8_extension' => {
         'version' => {
-          'full' => '1.2.3',
+          'full' => '2.0.7',
         },
       },
     }
@@ -69,6 +69,12 @@ describe 'php_oci8' do
       end
 
       describe 'php_oci8::config' do
+        let(:params) do
+          {
+            pecl_oci8_version: '2.0.7',
+          }
+        end
+
         it { is_expected.to contain_file('add-oci8-extension').with_owner('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_group('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_mode('0644') }
@@ -95,7 +101,13 @@ describe 'php_oci8' do
         it { is_expected.to contain_class('archive') }
       end
 
-      describe 'php_oci8::config' do
+      describe 'php_oci8::config' do\
+        let(:params) do
+          {
+            pecl_oci8_version: '2.0.7',
+          }
+        end
+
         it { is_expected.to contain_file('add-oci8-extension').with_owner('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_group('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_mode('0644') }
@@ -133,6 +145,12 @@ describe 'php_oci8' do
       end
 
       describe 'php_oci8::config' do
+        let(:params) do
+          {
+            pecl_oci8_version: '2.0.7',
+          }
+        end
+
         it { is_expected.to contain_file('add-oci8-extension').with_owner('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_group('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_mode('0644') }
@@ -159,6 +177,12 @@ describe 'php_oci8' do
       end
 
       describe 'php_oci8::config' do
+        let(:params) do
+          {
+            pecl_oci8_version: '2.0.7',
+          }
+        end
+
         it { is_expected.to contain_file('add-oci8-extension').with_owner('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_group('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_mode('0644') }
@@ -186,6 +210,12 @@ describe 'php_oci8' do
       end
 
       describe 'php_oci8::config' do
+        let(:params) do
+          {
+            pecl_oci8_version: '2.0.7',
+          }
+        end
+
         it { is_expected.to contain_file('add-oci8-extension').with_owner('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_group('root') }
         it { is_expected.to contain_file('add-oci8-extension').with_mode('0644') }
