@@ -93,7 +93,8 @@ class php_oci8 (
   Optional[String] $alternate_url,
   ) {
 
-  class {'::php_oci8::install':}
+  class {'::php_oci8::preinstall':}
+  -> Class { '::php_oci8::install': }
   ~> Class { '::php_oci8::config': }
   -> Class['::php_oci8']
 

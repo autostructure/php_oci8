@@ -50,39 +50,39 @@ class php_oci8::install::alternate_url {
   $alternate_url = $::php_oci8::alternate_url
 
   # get basic package installer from URL
-  archive { $destination_basic:
+  archive { "${destination_basic}.rpm":
     ensure  => present,
-    source  => "${alternate_url}/${package_name_basic}",
+    source  => "${alternate_url}/${package_name_basic}.rpm",
     extract => false,
-    creates => $destination_basic,
+    creates => "${destination_basic}.rpm",
     cleanup => false,
   }
 
   # get devel package installer from URL
-  archive { $destination_devel:
+  archive { "${destination_devel}.rpm":
     ensure  => present,
-    source  => "${alternate_url}/${package_name_devel}",
+    source  => "${alternate_url}/${package_name_devel}.rpm",
     extract => false,
-    creates => $destination_devel,
+    creates => "${destination_devel}.rpm",
     cleanup => false,
   }
 
   # install basic package
-  package { 'instantclient-basic':
+  package { $package_name_basic:
     ensure          => 'installed',
     provider        => $package_provider,
-    source          => $destination_basic,
+    source          => "${destination_basic}.rpm",
     install_options => '--force',
-    require         => Archive[$destination_basic],
+    require         => Archive["${destination_basic}.rpm"],
   }
 
   # install devel package
-  package { 'instantclient-development':
+  package { $package_name_devel:
     ensure          => 'installed',
     provider        => $package_provider,
-    source          => $destination_devel,
+    source          => "${destination_devel}.rpm",
     install_options => '--force',
-    require         => Archive[$destination_devel],
+    require         => Archive["${destination_devel}.rpm"],
   }
 
 }

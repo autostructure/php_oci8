@@ -27,18 +27,9 @@ class php_oci8::config {
     before      => Exec['pecl-install-oci8'],
   }
 
-  # notify { "FACT: ${::facts}['pecl_oci8_extension']['version']['full']": }
-  # notify { 'Without fact.': }
-  # warning('This is a warning.')
-#
-  # if($::facts['pecl_oci8_extension']['version']['full'] == ::php_oci8::pecl_oci8_extension) {
-  #   #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] MATCHES ${::php_oci8::pecl_oci8_extension}")
-  #   notify { 'TRUE: should produce output.': }
-  # }
-  # else {
-  #   #notice ("Evaluation: ${facts}['pecl_oci8_extension']['version']['full'] DOES NOT MATCH ${::php_oci8::pecl_oci8_extension}")
-  #   notify { 'FALSE: should produce output.': }
-  # }
+  #if ( $::facts['pecl_oci8_extension'] ) {
+  #  notify { "FACT: ${::facts['pecl_oci8_extension']['version']['full']}": }
+  #}
 
   exec {'pecl-install-oci8':
     command     => "pecl install oci8-${::php_oci8::pecl_oci8_extension} </tmp/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",
@@ -46,7 +37,6 @@ class php_oci8::config {
     user        => root,
     timeout     => 0,
     tries       => 5,
-    #unless  => $pecl_version_match,
     refreshonly => true,
     before      => File['add-oci8-extension'],
   }

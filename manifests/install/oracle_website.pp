@@ -3,7 +3,8 @@
 # Author: Paul Talbot, Autostructure
 #
 # ===============================================
-#
+# NOTE: This subclass is considered dead until/unless installers
+#       are available on pub as OTN requires cookie from sign-in
 # ===============================================
 #
 # @summary
@@ -90,10 +91,10 @@ $cookie = "${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}
     gpw_e24           => 'https%3A%2F%2Fwww.oracle.com%2Ftechnetwork%2Ftopics%2Flinuxx86-64soft-092277.html',
     oraclelicense     => 'accept-ic_linuxx8664-cookie',
     testSessionCookie => 'Enabled',
-    s_vi              => '[CS]v1|2DE861968507F55C-400001094002CCCE[CE]',
+    s_vi              => '[CS][CE]',
     s_sq              => '%5B%5BB%5D%5D',
     s_nr              => '1540408109310-New',
-    rt                => '"nu=http%3A%2F%2Fdownload.oracle.com%2Fotn%2Flinux%2Finstantclient%2F183000%2Foracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm&dm=oracle.com&si=cdc4505d-9942-4221-b93b-00a56980aae7&ss=1540406878572&sl=4&tt=14778&obo=0&sh=1540408085592%3D4%3A0%3A14778%2C1540407565336%3D3%3A0%3A10325%2C1540407544004%3D2%3A0%3A8905%2C1540406884059%3D1%3A0%3A5473&cl=1540408109307&bcn=%2F%2F36cc206a.akstat.io%2F"',
+    rt                => '"nu=http%3A%2F%2Fdownload.oracle.com%2Fotn%2Flinux%2Finstantclient%2F183000%2Foracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm&dm=oracle.com"',
   },
   default => {},
 }
@@ -134,7 +135,7 @@ $cookie = "${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}
   }
 
   # install devel package
-  package { 'instantclient-development':
+  package { 'instantclient-devel':
     ensure          => 'installed',
     provider        => 'rpm',
     source          => $destination_devel,

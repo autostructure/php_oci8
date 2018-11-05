@@ -33,7 +33,8 @@ class php_oci8::install {
     #
     # install using Oracle's URL from hiera #########################
     #
-    contain php_oci8::install::oracle_website
+    #contain php_oci8::install::oracle_website
+    fail('Unable to continue, no install class available. Exiting.')
   }
 
   file {"${temp_location}/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt":

@@ -3,7 +3,7 @@ HOSTS:
     roles:
       - agent
     platform: el-7-x86_64
-    snapshot: sexy-centos-beaker-snapshot
+    snapshot: beaker
     hypervisor: fusion
     ssh:
       password: password
