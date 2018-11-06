@@ -14,6 +14,7 @@ class php_oci8::install {
 
   # PHP required for devel package
   include ::php
+  include ::php::dev
 
   $temp_location = $::facts['where_is_temp']
 
