@@ -77,7 +77,7 @@
 #
 
 class php_oci8 (
-  String $pecl_oci8_extension,
+  String $pecl_oci8_version,
   Integer $instantclient_major,
   Integer $instantclient_minor,
   Integer $instantclient_patch_a,
