@@ -32,12 +32,13 @@ class php_oci8::config {
   #  notify { "FACT: ${::facts['pecl_oci8_extension']['version']['full']}": }
   #}
 
-  $requested_version = lookup('profile::php_oci8::pecl_oci8_version')
-  $installed_version = $::facts['pecl_oci8_extension']['version']['full']
+  if ( lookup('profile::php_oci8::pecl_oci8_version') and $::facts['pecl_oci8_extension'] ) {
 
-  if ( $requested_version and $::facts['pecl_oci8_extension'] ) {
+    $requested_version = lookup('profile::php_oci8::pecl_oci8_version')
+    $installed_version = $::facts['pecl_oci8_extension']['version']['full']
+
     if ( $requested_version == $installed_version ) {
-      notify { "HIERA: ${requested_version}": }
+      notify { "pecl oci8 ${requested_version} already installed, skipping.": }
     }
     else {
       notify { 'Uninstall here.': }
