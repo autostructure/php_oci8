@@ -1,6 +1,6 @@
 ---
 
-php_oci8::pecl_oci8_version: '2.0.12'
+php_oci8::pecl_oci8_version: '2.0.10'
 
 php_oci8::instantclient_major: 18
 php_oci8::instantclient_minor: 3

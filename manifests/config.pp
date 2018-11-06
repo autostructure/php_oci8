@@ -14,6 +14,7 @@
 class php_oci8::config {
 
   # Apache included for restart after oracle home
+  # NOTE: commented out since we are using php-fpm
   #include ::apache
 
   exec {'update pecl channel for pecl.php.net':
@@ -27,9 +28,33 @@ class php_oci8::config {
     before      => Exec['pecl-install-oci8'],
   }
 
-  #if ( $::facts['pecl_oci8_version'] ) {
+  #if ( $::facts['pecl_oci8_extension'] ) {
   #  notify { "FACT: ${::facts['pecl_oci8_extension']['version']['full']}": }
   #}
+
+  $requested_version = lookup('profile::php_oci8::pecl_oci8_version')
+  $installed_version = $::facts['pecl_oci8_extension']['version']['full']
+
+  if ( $requested_version and $::facts['pecl_oci8_extension'] ) {
+    if ( $requested_version == $installed_version ) {
+      notify { "HIERA: ${requested_version}": }
+    }
+    else {
+      notify { 'Uninstall here.': }
+      exec {'uninstall previous pecl oci8 extension':
+        command     => "pecl uninstall oci8-${installed_version}",
+        path        => ['/bin', '/usr/bin',],
+        user        => root,
+        timeout     => 0,
+        tries       => 5,
+        refreshonly => true,
+        before      => Exec['pecl-install-oci8'],
+      }
+    }
+  }
+  else {
+    fail('One or more elements to compare are missing values.')
+  }
 
   exec {'pecl-install-oci8':
     command     => "pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",
