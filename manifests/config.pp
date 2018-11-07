@@ -31,18 +31,26 @@ class php_oci8::config {
   if ( $::facts['pecl_oci8_extension'] ) {
     if ( $::facts['pecl_oci8_extension']['version'] ) {
       if ( $::facts['pecl_oci8_extension']['version']['full'] ) {
-        #notify { "FACT: ${::facts['pecl_oci8_extension']['version']['full']}": }
         $installed_version = $::facts['pecl_oci8_extension']['version']['full']
-        #notify { "VARIABLE: ${installed_version}": }
+        #notify { "INSTALLED: ${installed_version}": }
       }
     }
   }
 
   $requested_version = $::php_oci8::pecl_oci8_version
-  notify { "HIERA: ${requested_version}": }
+  #notify { "REQUESTED: ${requested_version}": }
 
   if ( $requested_version and $installed_version ) {
-    if ( $requested_version != $installed_version ) {
+    if $requested_version == $installed_version {
+      notify { 'Installed and requested pecl oci8 extension versions match, exiting.':
+        loglevel => debug,
+      }
+    }
+    else {
+      notify { "Switching from pecl oci8 ${installed_version} to ${requested_version}.":
+        notify   => Exec['uninstall previous pecl oci8 extension', 'pecl-install-oci8'],
+        loglevel => debug,
+      }
       exec {'uninstall previous pecl oci8 extension':
         command     => "pecl uninstall oci8-${installed_version}",
         path        => ['/bin', '/usr/bin',],
@@ -53,9 +61,6 @@ class php_oci8::config {
         before      => Exec['pecl-install-oci8'],
       }
     }
-  }
-  else {
-    fail('One or more elements to compare are missing values.')
   }
 
   exec {'pecl-install-oci8':
