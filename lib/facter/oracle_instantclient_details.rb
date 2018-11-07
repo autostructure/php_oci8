@@ -5,30 +5,54 @@ require 'puppet'
 require 'rubygems'
 require 'pp'
 
-regex = '/instantclient/'
-
+# oracle_instantclient_packages hash is "target group" key with corresponding regex value
+oracle_instantclient_packages = { 'instantclient' => '^oracle-instantclient' }
 packages = {}
 all_packages = Puppet::Type.type(:package).instances
 
-def get_yum_version(package_name, package_version)
-  result = Facter::Core::Execution.exec("/bin/rpm -q --queryformat \"%{NAME} %{VERSION}\" | grep #{partial_name}")
+def get_apt_version(package_name)
+  result = Facter::Core::Execution.exec("/usr/bin/dpkg-query --showformat='${Version}' --show #{package_name}")
   result
 end
 
-def generate_output(package_name, package_version)
-  packages = {}
-  packages[:name] = package_name
-  packages[:version] = package_version
+def get_gem_version(gem_name)
+  specs = Gem::Specification.find_by_name(gem_name)
+  # Gem::Specification.reset
+  specs.version
 end
 
-all_packages.each do |regex|
+def get_yum_version(package_name)
+  result = Facter::Core::Execution.exec("/bin/rpm -q --queryformat \"%{VERSION}\" #{package_name}")
+  result
+end
+
+def generate_output(target_group, matching_package, version, packages)
+  package = {}
+  package[:target_group] = target_group
+  package[:version] = version
+  package[:provider] = matching_package[:provider].to_s
+  packages[matching_package[:name]] = package
+end
+
+oracle_instantclient_packages.each do |target_group, regex|
   matching_packages = all_packages.select { |resource| resource.name =~ %r{#{regex}} }
   matching_packages.each do |matching_package|
-    get_yum_version(matching_package[:name], matching_package[:version])
-    generate_output(matching_package, installed_version)
+    case matching_package[:provider].to_s
+    when 'apt' ####################
+      version = get_apt_version(matching_package[:name])
+      generate_output(target_group, matching_package, version, packages)
+    when 'gem' ####################
+      version = get_gem_version(matching_package[:name]).to_s
+      generate_output(target_group, matching_package, version, packages)
+    when 'yum' ####################
+      version = get_yum_version(matching_package[:name])
+      generate_output(target_group, matching_package, version, packages)
+    else
+      puts "unknown provider passed (#{package[:provider]})"
+    end
   end
   # pp packages
-  Facter.add(:packages_of_interest) do
+  Facter.add(:oracle_instantclient_packages) do
     confine kernel: 'Linux'
     setcode do
       packages
