@@ -28,21 +28,21 @@ class php_oci8::config {
     before      => Exec['pecl-install-oci8'],
   }
 
-  #if ( $::facts['pecl_oci8_extension'] ) {
-  #  notify { "FACT: ${::facts['pecl_oci8_extension']['version']['full']}": }
-  #}
-
-  $requested_version = lookup('profile::php_oci8::pecl_oci8_version')
-  if ( $requested_version and $::facts['pecl_oci8_extension'] ) {
-
-    $
-    $installed_version = ${::facts['pecl_oci8_extension']['version']['full']}
-
-    if ( $requested_version == $installed_version ) {
-      notify { "pecl oci8 ${requested_version} already installed, skipping.": }
+  if ( $::facts['pecl_oci8_extension'] ) {
+    if ( $::facts['pecl_oci8_extension']['version'] ) {
+      if ( $::facts['pecl_oci8_extension']['version']['full'] ) {
+        #notify { "FACT: ${::facts['pecl_oci8_extension']['version']['full']}": }
+        $installed_version = $::facts['pecl_oci8_extension']['version']['full']
+        #notify { "VARIABLE: ${installed_version}": }
+      }
     }
-    else {
-      notify { 'Uninstall here.': }
+  }
+
+  $requested_version = $::php_oci8::pecl_oci8_version
+  notify { "HIERA: ${requested_version}": }
+
+  if ( $requested_version and $installed_version ) {
+    if ( $requested_version != $installed_version ) {
       exec {'uninstall previous pecl oci8 extension':
         command     => "pecl uninstall oci8-${installed_version}",
         path        => ['/bin', '/usr/bin',],
