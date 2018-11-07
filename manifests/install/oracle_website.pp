@@ -3,8 +3,8 @@
 # Author: Paul Talbot, Autostructure
 #
 # ===============================================
-# NOTE: This subclass is considered dead until/unless installers
-#       are available on pub as OTN requires cookie from sign-in
+# NOTE: This subclass is considered dead unless installers
+#       are available on pub as OTN requires sign-in token
 # ===============================================
 #
 # @summary
@@ -92,8 +92,8 @@ $cookie = "${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}
     oraclelicense     => 'accept-ic_linuxx8664-cookie',
     testSessionCookie => 'Enabled',
     s_vi              => '[CS][CE]',
-    s_sq              => '%5B%5BB%5D%5D',
-    s_nr              => '1540408109310-New',
+    s_sq              => '%5B%5B%5B%5B',
+    s_nr              => '000000000000-New',
     rt                => '"nu=http%3A%2F%2Fdownload.oracle.com%2Fotn%2Flinux%2Finstantclient%2F183000%2Foracle-instantclient18.3-basic-18.3.0.0.0-1.x86_64.rpm&dm=oracle.com"',
   },
   default => {},
