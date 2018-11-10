@@ -42,17 +42,14 @@ oracle_instantclient_packages.each do |target_group, regex|
     when 'apt' ####################
       version = get_apt_version(matching_package[:name])
       versions = version
-      #pp versions
       generate_output(target_group, matching_package, version, packages)
     when 'gem' ####################
       version = get_gem_version(matching_package[:name]).to_s
       versions = version
-      #pp versions
       generate_output(target_group, matching_package, version, packages)
     when 'yum' ####################
       version = get_yum_version(matching_package[:name])
       versions = version
-      #pp versions
       generate_output(target_group, matching_package, version, packages)
     else
       puts "unknown provider passed (#{package[:provider]})"

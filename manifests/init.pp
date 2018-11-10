@@ -94,6 +94,7 @@ class php_oci8 (
   ) {
 
   class {'::php_oci8::preinstall':}
+  -> Class { '::php_oci8::uninstall': }
   -> Class { '::php_oci8::install': }
   ~> Class { '::php_oci8::config': }
   -> Class['::php_oci8']
