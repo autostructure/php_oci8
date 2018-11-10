@@ -28,6 +28,8 @@ class php_oci8::config {
     before      => Exec['pecl-install-oci8'],
   }
 
+  # set a variable from fact containing already-installed extension version to
+  #   compare with requested version from hiera
   if ( $::facts['pecl_oci8_extension'] ) {
     if ( $::facts['pecl_oci8_extension']['version'] ) {
       if ( $::facts['pecl_oci8_extension']['version']['full'] ) {
@@ -37,6 +39,8 @@ class php_oci8::config {
     }
   }
 
+  # set a variable from hiera value containing desired extension version to
+  #   compare with already-installed version in fact
   $requested_version = $::php_oci8::pecl_oci8_version
   #notify { "REQUESTED: ${requested_version}": }
 
