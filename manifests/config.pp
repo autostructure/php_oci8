@@ -53,18 +53,18 @@ class php_oci8::config {
     tries       => 5,
     refreshonly => true,
     before      => Exec['pecl-install-oci8'],
-    notify      => Exec['uninstall pecl oci8 extension'],
+    #notify      => Exec['uninstall pecl oci8 extension'],
   }
 
-  exec {'uninstall pecl oci8 extension':
-    command     => 'pecl uninstall oci8',
-    path        => ['/bin', '/usr/bin',],
-    user        => root,
-    timeout     => 0,
-    tries       => 5,
-    refreshonly => true,
-    before      => Exec['pecl-install-oci8'],
-  }
+  #exec {'uninstall pecl oci8 extension':
+  #  command     => 'pecl uninstall oci8',
+  #  path        => ['/bin', '/usr/bin',],
+  #  user        => root,
+  #  timeout     => 0,
+  #  tries       => 5,
+  #  refreshonly => true,
+  #  before      => Exec['pecl-install-oci8'],
+  #}
 
   exec {'pecl-install-oci8':
     command     => "pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",

@@ -48,7 +48,7 @@ class php_oci8::uninstall {
     }
     else {
       notify { "Uninstalling instant client ${installed_client_version}.":
-        notify   => [ Exec['uninstall previous pecl oci8 extension'], Package[$package_name_devel], Package[$package_name_basic] ],
+        notify   => [ Package[$package_name_devel], Package[$package_name_basic] ],
         loglevel => debug,
       }
 
