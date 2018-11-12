@@ -31,7 +31,7 @@ class php_oci8::uninstall {
     $installed_client_version = $::facts['oracle_instantclient_versions']
     notify { "INSTALLED: ${installed_client_version}": }
 
-    $package_version_array = split($installed_client_version, '.')
+    $package_version_array = split($installed_client_version, '\.')
 
     $package_version_array.each |String $item| {
       notify { "ITEM: ${item}": }
