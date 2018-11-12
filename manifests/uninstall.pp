@@ -11,6 +11,7 @@
 #
 
 class php_oci8::uninstall {
+
   # determine package provider for package resource below
   case $facts['kernel'] {
     'Linux' : {
@@ -50,7 +51,7 @@ class php_oci8::uninstall {
     }
     else {
       notify { "Uninstalling instant client ${installed_client_version}.":
-        notify   => [ Package[$package_name_devel], Package[$package_name_basic] ],
+        notify   => [ Exec['uninstall previous pecl oci8 extension'], Package[$package_name_devel], Package[$package_name_basic] ],
         loglevel => debug,
       }
 

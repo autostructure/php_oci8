@@ -17,17 +17,6 @@ class php_oci8::config {
   # NOTE: commented out since we are using php-fpm
   #include ::apache
 
-  exec {'update pecl channel for pecl.php.net':
-    command     => 'pecl channel-update pecl.php.net',
-    path        => ['/bin', '/usr/bin',],
-    user        => root,
-    timeout     => 0,
-    tries       => 5,
-    # unless  => '/usr/bin/php -m | grep -c oci8
-    refreshonly => true,
-    before      => Exec['pecl-install-oci8'],
-  }
-
   # set a variable from fact containing already-installed extension version to
   #   compare with requested version from hiera
   if ( $::facts['pecl_oci8_extension'] ) {
@@ -42,7 +31,6 @@ class php_oci8::config {
   # set a variable from hiera value containing desired extension version to
   #   compare with already-installed version in fact
   $requested_version = $::php_oci8::pecl_oci8_version
-  #notify { "REQUESTED: ${requested_version}": }
 
   if ( $requested_version and $installed_version ) {
     if $requested_version == $installed_version {
@@ -52,19 +40,31 @@ class php_oci8::config {
     }
     else {
       notify { "Switching from pecl oci8 ${installed_version} to ${requested_version}.":
-        notify   => Exec['uninstall previous pecl oci8 extension', 'pecl-install-oci8'],
+        notify   => [ Exec['uninstall pecl oci8 extension'], Exec['pecl-install-oci8'] ],
         loglevel => debug,
       }
-      exec {'uninstall previous pecl oci8 extension':
-        command     => "pecl uninstall oci8-${installed_version}",
-        path        => ['/bin', '/usr/bin',],
-        user        => root,
-        timeout     => 0,
-        tries       => 5,
-        refreshonly => true,
-        before      => Exec['pecl-install-oci8'],
-      }
     }
+  }
+
+  exec {'update pecl channel for pecl.php.net':
+    command     => 'pecl channel-update pecl.php.net',
+    path        => ['/bin', '/usr/bin',],
+    user        => root,
+    timeout     => 0,
+    tries       => 5,
+    refreshonly => true,
+    before      => Exec['pecl-install-oci8'],
+    notify      => Exec['uninstall pecl oci8 extension'],
+  }
+
+  exec {'uninstall pecl oci8 extension':
+    command     => 'pecl uninstall oci8}',
+    path        => ['/bin', '/usr/bin',],
+    user        => root,
+    timeout     => 0,
+    tries       => 5,
+    refreshonly => true,
+    before      => Exec['pecl-install-oci8'],
   }
 
   exec {'pecl-install-oci8':
