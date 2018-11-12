@@ -30,16 +30,17 @@ class php_oci8::uninstall {
   if ( $::facts['oracle_instantclient_versions'] ) {
     $installed_client_version = $::facts['oracle_instantclient_versions']
     notify { "INSTALLED: ${installed_client_version}": }
+
     $package_version_array = split($installed_client_version, '.')
-    if $package_version_array {
-      $installed_major = $package_version_array[0]
-      $installed_minor = $package_version_array[1]
-      $package_version_array.each |String $item| {
-        notify { "ITEM: ${item}": }
-      }
-      notify { "MAJOR: ${installed_major}": }
-      notify { "MINOR: ${installed_minor}": }
+
+    $package_version_array.each |String $item| {
+      notify { "ITEM: ${item}": }
     }
+
+    $installed_major = $package_version_array[0]
+    $installed_minor = $package_version_array[1]
+    notify { "MAJOR: ${installed_major}": }
+    notify { "MINOR: ${installed_minor}": }
   }
 
   $package_name_basic = "oracle-instantclient${installed_major}.${installed_minor}-basic"
