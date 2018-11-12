@@ -26,6 +26,7 @@ class php_oci8::uninstall {
     default : {
       fail ("Unsupported platform ${$facts['kernel']}.") }
   }
+
   # set a variable from fact containing already-installed instant client version to
   #   compare with requested version from hiera
   if ( $::facts['oracle_instantclient_versions'] != { } ) {
@@ -33,15 +34,11 @@ class php_oci8::uninstall {
     $package_version_array = split($installed_client_version, '\.')
     $installed_major = $package_version_array[0]
     $installed_minor = $package_version_array[1]
-    #notify { "INSTALLED: ${installed_client_version}": }
-    #notify { "MAJOR: ${installed_major}": }
-    #notify { "MINOR: ${installed_minor}": }
   }
 
   $package_name_basic = "oracle-instantclient${installed_major}.${installed_minor}-basic"
   $package_name_devel = "oracle-instantclient${installed_major}.${installed_minor}-devel"
   $requested_client_version = "${php_oci8::instantclient_major}.${php_oci8::instantclient_minor}.${php_oci8::instantclient_patch_a}.${php_oci8::instantclient_patch_b}.${php_oci8::instantclient_patch_c}"
-  #notify { "REQUESTED: ${requested_client_version}": }
 
   if ( $requested_client_version and $installed_client_version ) {
     if $requested_client_version == $installed_client_version {
@@ -67,7 +64,7 @@ class php_oci8::uninstall {
         provider => $package_provider,
       }
 
-      # Uninstall pecl oci8
+      # Uninstall pecl oci8 extension to eliminate errors on upgrade
       exec {'uninstall previous pecl oci8 extension':
         command     => 'pecl uninstall oci8',
         path        => ['/bin', '/usr/bin',],
