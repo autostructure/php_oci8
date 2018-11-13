@@ -14,4 +14,7 @@ class php_oci8::preinstall {
   package {'gcc':
     ensure => installed,
   }
+  package {'wget':
+    ensure => installed,
+  }
 }
