@@ -55,7 +55,6 @@ class php_oci8::install::alternate_url {
     source  => "${alternate_url}/${package_name_basic}.rpm",
     extract => false,
     creates => "${destination_basic}.rpm",
-    onlyif  => "/bin/wget -O/dev/null -q ${alternate_url}/${package_name_basic}.rpm"
     cleanup => false,
   }
 
@@ -65,7 +64,6 @@ class php_oci8::install::alternate_url {
     source  => "${alternate_url}/${package_name_devel}.rpm",
     extract => false,
     creates => "${destination_devel}.rpm",
-    onlyif  => "/bin/wget -O/dev/null -q ${alternate_url}/${package_name_devel}.rpm"
     cleanup => false,
   }
 
