@@ -15,7 +15,6 @@ class php_oci8::install::alternate_url {
   # archive module is used to download packages
   include ::archive
 
-  # this variable is used for storing installer binary for package resource
   $temp_location = $::facts['where_is_temp']
   file { $temp_location:
     ensure  => 'directory',
@@ -28,8 +27,6 @@ class php_oci8::install::alternate_url {
   # absolute paths to the installers
   $destination_basic = "${temp_location}/${package_name_basic}"
   $destination_devel = "${temp_location}/${package_name_devel}"
-  #notice ("Destination for basic is ${destination_basic}.")
-  #notice ("Destination for devel is ${destination_devel}.")
 
   # determine package provider for package resources below
   case $facts['kernel'] {
