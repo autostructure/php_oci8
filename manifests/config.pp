@@ -52,7 +52,7 @@ class php_oci8::config {
     timeout     => 0,
     tries       => 5,
     refreshonly => true,
-    before      => Exec['pecl-install-oci8'],
+    before      => Exec['install pecl oci8 extension'],
     notify      => Exec['uninstall pecl oci8 extension'],
   }
 
