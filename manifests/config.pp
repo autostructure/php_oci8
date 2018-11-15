@@ -39,7 +39,7 @@ class php_oci8::config {
     }
     else {
       notify { "Change pecl oci8 \"${installed_version}\" to \"${requested_version}\"":
-        notify   => [ Exec['uninstall pecl oci8 extension'], Exec['pecl-install-oci8'] ],
+        notify   => [ Exec['uninstall pecl oci8 extension'], Exec['install pecl oci8 extension'] ],
         loglevel => debug,
       }
     }
@@ -64,10 +64,10 @@ class php_oci8::config {
     tries       => 5,
     refreshonly => true,
     onlyif      => 'pecl list oci8',
-    before      => [ Exec['pecl-install-oci8'], Class['::php'] ],
+    before      => Exec['install pecl oci8 extension'],
   }
 
-  exec {'pecl-install-oci8':
+  exec {'install pecl oci8 extension':
     command     => "pecl install oci8-${::php_oci8::pecl_oci8_version} </tmp/answers-pecl-oci8-${::php_oci8::instantclient_major}.${::php_oci8::instantclient_minor}.txt",
     path        => ['/bin', '/usr/bin',],
     user        => root,
