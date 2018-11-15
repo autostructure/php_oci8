@@ -33,12 +33,12 @@ class php_oci8::config {
 
   if ( $requested_version and $installed_version != { } ) {
     if $requested_version == $installed_version {
-      notify { 'Installed and requested pecl oci8 extension versions match, exiting.':
+      notify { 'Installed and requested pecl oci8 extension versions match, exiting':
         loglevel => debug,
       }
     }
     else {
-      notify { "Switching from pecl oci8 ${installed_version} to ${requested_version}.":
+      notify { "Change pecl oci8 \"${installed_version}\" to \"${requested_version}\"":
         notify   => [ Exec['uninstall pecl oci8 extension'], Exec['pecl-install-oci8'] ],
         loglevel => debug,
       }

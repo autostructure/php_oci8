@@ -42,12 +42,12 @@ class php_oci8::uninstall {
 
   if ( $requested_client_version and $installed_client_version ) {
     if $requested_client_version == $installed_client_version {
-      notify { 'Installed and requested client versions match, exiting.':
+      notify { 'Installed and requested client versions match, exiting':
         loglevel => debug,
       }
     }
     else {
-      notify { "Uninstalling instant client ${installed_client_version}":
+      notify { "Uninstalling instant client \"${installed_client_version}\"":
         notify   => [ Exec['uninstall previous pecl oci8 extension'], Package[$package_name_devel], Package[$package_name_basic] ],
         loglevel => debug,
       }
