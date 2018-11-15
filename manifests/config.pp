@@ -64,7 +64,7 @@ class php_oci8::config {
     tries       => 5,
     refreshonly => true,
     onlyif      => 'pecl list oci8',
-    before      => Exec['pecl-install-oci8'],
+    before      => [ Exec['pecl-install-oci8'], Class['::php'] ],
   }
 
   exec {'pecl-install-oci8':
