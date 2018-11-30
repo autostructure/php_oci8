@@ -97,7 +97,6 @@ class php_oci8 (
   -> Class { '::php_oci8::uninstall': }
   -> Class { '::php_oci8::install': }
   ~> Class { '::php_oci8::config': }
-  ~> Class { '::php_oci8::service': }
   -> Class['::php_oci8']
 
 }

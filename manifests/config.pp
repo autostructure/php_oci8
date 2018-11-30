@@ -39,7 +39,7 @@ class php_oci8::config {
     }
     else {
       notify { "Change pecl oci8 \"${installed_version}\" to \"${requested_version}\"":
-        notify   => [ Exec['uninstall pecl oci8 extension'], Exec['install pecl oci8 extension'] ],
+        notify   => [ Exec['uninstall pecl oci8 extension'], Exec['install pecl oci8 extension'], Service['php-fpm'] ],
         loglevel => debug,
       }
     }
