@@ -4,7 +4,9 @@
 #
 # ===============================================
 # TODO: update pecl answers file content to be dynamic and NOT in a file from files
-# TODO: Make hash of cookies work for downloading from Oracle website
+# TODO: Make hash of cookies work for downloading from Oracle website (on-hold)
+# TODO: half pregnant issue with pecl oci8 needing to restart php-fpm, causing dep cycle
+#       on notify Service['php-fpm']
 # ===============================================
 #
 # @summary
