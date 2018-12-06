@@ -76,6 +76,16 @@ class php_oci8::config {
     refreshonly => true,
     onlyif      => '/bin/test `/bin/rpm -qa oracle-instantclient* | wc -l` -ge 2',
     before      => File['add-oci8-extension'],
+    notify      => Exec['restart php-fpm'],
+  }
+
+  exec {'restart php-fpm':
+    command     => 'systemctl restart php-fpm',
+    path        => ['/bin', '/usr/bin',],
+    user        => root,
+    timeout     => 0,
+    tries       => 5,
+    refreshonly => true,
   }
 
   file {'add-oci8-extension':
