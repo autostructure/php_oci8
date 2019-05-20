@@ -1,6 +1,6 @@
 # == Class php_oci8::config
 #
-# Author: Paul Talbot, Autostructure
+# Author: Paul Talbot, FFI
 #
 # ===============================================
 # TODO: refine logic to compare installed pecl oci8 extention to what
@@ -33,15 +33,14 @@ class php_oci8::config {
 
   if ( $requested_version and $installed_version != { } ) {
     if $requested_version == $installed_version {
-      notify { 'Installed and requested pecl oci8 extension versions match, exiting':
-        loglevel => debug,
-      }
+      #notify { 'Installed and requested pecl oci8 extension versions match, exiting':
+      #  loglevel => debug,
     }
-    else {
-      notify { "Change pecl oci8 \"${installed_version}\" to \"${requested_version}\"":
-        notify   => [ Exec['uninstall pecl oci8 extension'], Exec['install pecl oci8 extension'] ],
-        loglevel => debug,
-      }
+  }
+  else {
+    notify { "Change pecl oci8 \"${installed_version}\" to \"${requested_version}\"":
+      notify   => [ Exec['uninstall pecl oci8 extension'], Exec['install pecl oci8 extension'] ],
+      loglevel => debug,
     }
   }
 
@@ -74,7 +73,7 @@ class php_oci8::config {
     timeout     => 0,
     tries       => 5,
     refreshonly => true,
-    onlyif      => '/bin/test `/bin/rpm -qa oracle-instantclient* | wc -l` -ge 2',
+    onlyif      => '/usr/bin/test `/bin/rpm -qa oracle-instantclient* | wc -l` -ge 2',
     before      => File['add-oci8-extension'],
     notify      => Exec['restart php-fpm'],
   }
