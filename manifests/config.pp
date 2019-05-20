@@ -35,6 +35,7 @@ class php_oci8::config {
     if $requested_version == $installed_version {
       #notify { 'Installed and requested pecl oci8 extension versions match, exiting':
       #  loglevel => debug,
+      #}
     }
   }
   else {
